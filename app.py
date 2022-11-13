@@ -38,7 +38,7 @@ def answer():
 
 @app.route("/format", methods=["GET"])
 def format():
-    a = clients[request.args.get('id')]
+    a = clients.values()[0]
     a = base64.b64decode(a.split(",")[1][-1:])
     with open("file.webm" , "wb+") as f:
         f.write(a)
