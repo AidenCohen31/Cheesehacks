@@ -5,7 +5,7 @@ from uuid import uuid4
 url = "mysql://ktnbpq3gxt22k2fv:s1wkukxdv5xmxysj@qvti2nukhfiig51b.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/dq7hba5u9dvqimjc"
 app = Flask(__name__)
 clients = {}
-socketio = SocketIO(app)
+socketio = SocketIO(app,cors_allowed_origins="*" )
 @app.route("/")
 def hello_world():
     return "<p>Hello, World!</p>"
