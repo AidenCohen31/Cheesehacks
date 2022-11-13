@@ -1,6 +1,6 @@
 from flask import Flask,request
 import mysql.connector
-from flask_socketio import SocketIO,send
+from flask_socketio import SocketIO,send,emit
 from uuid import uuid4
 import subprocess
 url = "mysql://ktnbpq3gxt22k2fv:s1wkukxdv5xmxysj@qvti2nukhfiig51b.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/dq7hba5u9dvqimjc"
@@ -21,7 +21,7 @@ def handle_message(data):
 def connect():
     clients[request.sid] = []
     resp[request.sid] = {}
-    send(request.sid)
+    emit("session", {"sessionID" : request.sid})
 @socketio.on('disconnect')
 def disconnect():
     clients.pop(request.sid)
