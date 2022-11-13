@@ -15,6 +15,7 @@ def hello_world():
 @socketio.on('message')
 def handle_message(data):
     clients[request.sid] = data
+    print(request.sid)
     send(request.sid)
 @socketio.on('connect')
 def connect():
