@@ -3,6 +3,7 @@ import mysql.connector
 from flask_socketio import SocketIO,send,emit
 from uuid import uuid4
 import subprocess
+import base64
 url = "mysql://ktnbpq3gxt22k2fv:s1wkukxdv5xmxysj@qvti2nukhfiig51b.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/dq7hba5u9dvqimjc"
 app = Flask(__name__)
 clients = {}
@@ -15,7 +16,7 @@ def hello_world():
 @socketio.on('message')
 def handle_message(data):
     clients[request.sid] = data
-    print(request.sid)
+    print(clients)
     send(request.sid)
 @socketio.on('connect')
 def connect():
@@ -36,8 +37,13 @@ def answer():
 
 @app.route("/format", methods=["GET"])
 def format():
+    a = clients[request.args.get('id')]
+    a = base64.b64decode(a.split(",")[1][-1:])
     with open("file.webm" , "wb+") as f:
-        f.write(clients[request.args.get("id")])
+        f.write(a)
     subprocess.run(["ffmpeg" ,"-i", "file.webm", "-vn", "file.wav"])
+
+
+
 if __name__ == '__main__':
     socketio.run(app)
