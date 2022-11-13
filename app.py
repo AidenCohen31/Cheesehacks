@@ -4,6 +4,7 @@ from flask_socketio import SocketIO,send,emit
 from uuid import uuid4
 import subprocess
 import base64
+from flask import send_file
 url = "mysql://ktnbpq3gxt22k2fv:s1wkukxdv5xmxysj@qvti2nukhfiig51b.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/dq7hba5u9dvqimjc"
 app = Flask(__name__)
 clients = {}
@@ -43,6 +44,11 @@ def format():
         f.write(a)
     subprocess.run(["ffmpeg" ,"-i", "file.webm", "-vn", "file.wav"])
 
+    # generate_wav_file should take a file as parameter and write a wav in it
+
+
+    return send_file("file.wav", as_attachment=True)
+     
 
 
 if __name__ == '__main__':
