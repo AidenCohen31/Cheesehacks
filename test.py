@@ -1,7 +1,24 @@
-import socketio
+from pyogg.opus import OpusDecoder
+import base64
+import wave
+a = ""
+opus_decoder = OpusDecoder()
 
-sio = socketio.Client()
-sio.connect("https://cheesehacks-backend.herokuapp.com/")
+wave_write = wave.open("a.wav", "wb")
 
-print(sio.sid)
-sio.disconnect()
+    # Save the wav's specification
+a = ""
+with open("a.opus","rb") as f:
+    a = f.read()
+    
+wave_write.setnchannels(2)
+wave_write.setframerate(44100)
+wave_write.setsampwidth(4)
+pcm = opus_decoder.decode(a)
+wave_write.writeframes(pcm)
+
+
+    # Save the wav's specification
+
+
+
