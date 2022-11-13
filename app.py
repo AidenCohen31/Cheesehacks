@@ -16,11 +16,12 @@ def hello_world():
 
 @socketio.on('message')
 def handle_message(data):
-    clients[request.sid] = data
+    print(data)
+    clients[request.sid] = data["data"]
     send(request.sid)
 @socketio.on('connect')
 def connect():
-    clients[request.sid] = []
+    clients[request.sid] = ""
     resp[request.sid] = {}
     emit("session", {"sessionID" : request.sid})
 @socketio.on('disconnect')
