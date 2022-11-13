@@ -33,7 +33,7 @@ def answer():
     else:
         return {}
 
-@app.route("format", methods=["GET"])
+@app.route("/format", methods=["GET"])
 def format():
     with open("file.webm" , "wb+") as f:
         f.write(clients[request.args.get("id")])
